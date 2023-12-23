@@ -1,0 +1,18 @@
+{
+  "name": "project29",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build.mjs",
+    "dev": "node watch.mjs"
+  },
+  "author": "mara.webp",
+  "license": "MIT",
+  "dependencies": {
+    "p5": "^1.9.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.19.10"
+  }
+}

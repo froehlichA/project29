@@ -7,7 +7,7 @@ const template = await fs.readFile(path.join('src', 'template.html'), 'utf8');
 const files = await fs.readdir(path.join('src', 'pages'));
 const scripts = files.filter(f => f.endsWith('.js'));
 
-await fs.rm('public', { recursive: true });
+if (fsx.existsSync('public')) await fs.rm('public', { recursive: true });
 await fs.mkdir('public');
 
 // Generate Index

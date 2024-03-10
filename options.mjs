@@ -5,6 +5,7 @@ import fsx from 'node:fs';
 const index = await fs.readFile(path.join('src', 'index.html'), 'utf8');
 const template = await fs.readFile(path.join('src', 'template.html'), 'utf8');
 const files = await fs.readdir(path.join('src', 'pages'));
+const assets = await fs.readdir(path.join('src', 'assets'));
 const scripts = files.filter(f => f.endsWith('.js'));
 
 if (fsx.existsSync('public')) await fs.rm('public', { recursive: true });
@@ -24,6 +25,14 @@ for(const script of scripts) {
     const output = template.replace('</html>', `<script src="${script}"></script>\n</html>`);
     const htmlDest = path.join('public', script.replace('.js', '.html'));
     await fs.writeFile(htmlDest, output, "utf8");
+}
+
+// Copy assets
+await fs.mkdir(path.join('public', 'assets'));
+for(const asset of assets) {
+    console.log('ass', asset);
+    const dest = path.join('public', 'assets', asset);
+    await fs.copyFile(path.join('src', 'assets', asset), dest);
 }
 
 /** @type import('esbuild').BuildOptions */
